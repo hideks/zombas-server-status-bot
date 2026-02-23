@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { Client, GatewayIntentBits, TextChannel } from "discord.js";
+import express, { Response } from 'express';
 
 const TOKEN = process.env.DISCORD_TOKEN;
 
@@ -175,3 +176,15 @@ client.rest.on("rateLimited", (info) => {
 });
 
 client.login(TOKEN);
+
+const app = express();
+
+app.get('/', (_, response: Response) => {
+    response.send('Bot is Online!');
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
